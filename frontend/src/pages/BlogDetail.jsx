@@ -48,15 +48,15 @@ export const BlogDetail = () => {
     // here we are giving out actual response onlu if data exists
 
     return data ? (
-
-        <div className='relative'>
-
+        <main>
+        <div className='relative dark:bg-gray-900 dark:text-white'>
+            
             <NavBar />
-            <img src={assets.gradientBackground} alt="" className=' absolute top-20 -z-1 opacity-80' />
+            <img src={JSON.parse(localStorage.getItem('darkMode'))===true ?assets.darkGradientBackground : assets.gradientBackground} alt="" className=' absolute top-20 -z-1 opacity-80 ' />
             {/*Section 1 (title,small description and date). And here we are going to use moment npm to display the date MMMM- Complete month, Do- Date of , YYYY - year number*/}
-            <div className=' text-center mt-20 text-gray-600 '>
+            <div className=' text-center mt-20 text-gray-600 dark:text-gray-300 '>
                 <p className=' text-primary py-4 font-medium'>Published on {Moment(data.createdAt).format('MMMM Do YYYY')}</p>
-                <h1 className=' text-2xl sm:text-5xl font-semibold max-w-2xl mx-auto text-gray-800'>{data.title}</h1>
+                <h1 className=' text-2xl sm:text-5xl font-semibold max-w-2xl mx-auto text-gray-800 dark:text-white'>{data.title}</h1>
                 <h2 className=' my-5 max-w-lg truncate mx-auto'>{data.subTitle}</h2>
                 <p className=' inline-block py-1 px-4 rounded-full mb-6 border text-sm border-primary/35 bg-primary/5 font-medium text-primary'>Michael Brown</p>
             </div>
@@ -78,7 +78,7 @@ export const BlogDetail = () => {
                     <div className=' flex flex-col gap-4'>
                         {comments.map((item, index) => {
                             return (
-                                <div key={index} className=' relative bg-primary/2 border border-primary/5 max-w-xl p-4 rounded text-gray-600'>
+                                <div key={index} className=' relative bg-primary/2 border border-primary/5 max-w-xl p-4 rounded text-gray-600 dark:text-gray-300'>
 
                                     <div>
                                         <img src={assets.user_icon} alt="" className='w-6' />
@@ -100,9 +100,9 @@ export const BlogDetail = () => {
 
                     <form onSubmit={addComment} className=' flex flex-col items-start gap-4 max-w-lg'>
 
-                        <input onChange={((e) => setName(e.target.value))} type="text" placeholder='Name' required className='w-full p-2 border border-gray-300 rounded outline-none' />
+                        <input onChange={((e) => setName(e.target.value))} type="text" placeholder='Name' required className='w-full p-2 border border-gray-300 dark:border-gray-700 rounded outline-none bg-white dark:bg-gray-800 text-gray-800 dark:text-white' />
 
-                        <textarea onChange={((e) => setContent(e.target.value))} className=" w-full p-2 border border-gray-300 rounded outline-none h-48" required placeholder='Comment'></textarea>
+                        <textarea onChange={((e) => setContent(e.target.value))} className=" w-full p-2 border border-gray-300 dark:border-gray-700 rounded outline-none h-48 bg-white dark:bg-gray-800 text-gray-800 dark:text-white" required placeholder='Comment'></textarea>
 
                         <button type="submit" className='bg-primary text-white rounded p-2 px-8 hover:scale-102 transition-all cursor-pointer '>Submit</button>
                     </form>
@@ -125,10 +125,8 @@ export const BlogDetail = () => {
 
 
             </div>
-
-
-
+            
         </div>
-
+      </main>
     ) : (<Loader/>)
 }

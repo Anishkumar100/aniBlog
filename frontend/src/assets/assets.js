@@ -197,6 +197,16 @@ export const comments_data = [
             "__v": 0
         },
         {
+            "_id": "6811ed9e7836a82ba747cb25379",
+            "blog": blog_data[0],
+            "name": "Sathik Dabur",
+            "content": "This is my new comment",
+            "isApproved": false,
+            "createdAt": "2025-04-30T09:30:06.918Z",
+            "updatedAt": "2025-04-30T09:30:06.918Z",
+            "__v": 0
+        },
+        {
             "_id": "6810a752fbb942aa7cbf4adb",
             "blog": blog_data[1],
             "name": "John Doe",
@@ -235,7 +245,18 @@ export const comments_data = [
             "createdAt": "2025-04-22T09:42:00.444Z",
             "updatedAt": "2025-04-22T10:24:55.626Z",
             "__v": 0
+        },
+        {
+            "_id": "68076468e32055c94a696cf549",
+            "blog": blog_data[4],
+            "name": "Kanchiggan King",
+            "content": "Honestly, I did not expect this to work, but it totally did. Saved my project!",
+            "isApproved": true,
+            "createdAt": "2025-04-22T09:42:00.444Z",
+            "updatedAt": "2025-04-22T10:24:55.626Z",
+            "__v": 0
         }
+
     ]
 
 export const dashboard_data = {

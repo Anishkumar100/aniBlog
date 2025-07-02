@@ -11,3 +11,9 @@ export {NewsLetter} from "./NewsLetter"
 export {Footer} from "./Footer"
 
 export {Loader} from "./Loader"
+
+export {SideBar} from "./admin/SideBar"
+
+export {BlogTableItem} from "./admin/BlogTableItem"
+
+export {CommentTableItem} from "./admin/CommentTableItem"
