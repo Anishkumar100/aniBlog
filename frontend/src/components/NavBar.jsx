@@ -2,10 +2,12 @@ import React, { useEffect } from 'react'
 import { assets } from "../assets/assets"
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
+import { useAppContext } from '../../context/AppContext'
 
 export const NavBar = () => {
 
-  const navigate = useNavigate()
+  const {navigate,token} = useAppContext()
+  /*have took the token here, so that if its present we have to change the login button to dashboard and if not "log" */
 
   const [darkMode, setDarkMode] = useState(JSON.parse(localStorage.getItem('darkMode')) || false)
 
@@ -47,7 +49,7 @@ export const NavBar = () => {
             }}
           className='flex items-center gap-2 rounded-full text-sm cursor-pointer bg-primary text-white px-10 py-2.5 dark:bg-blue-700 dark:text-white'
         >
-          Login
+          {token?`Dashboard`:`Login`}
           <img src={assets.arrow} className='w-3' alt="arrow" />
         </button>
       </div>

@@ -1,9 +1,11 @@
 import React from 'react'
 import { Route, Routes } from "react-router-dom"
 import { Home, BlogDetail, Layout, Dashboard, AddBlog, Comments, ListBlog , Login} from "../pages/indexPages"
+import {Toaster} from "react-hot-toast"
 
 export const AllRoutes = () => {
   return (
+    <Toaster>
     <Routes>
       <Route path="/" element={<Home />} />
 
@@ -23,5 +25,6 @@ export const AllRoutes = () => {
 
 
     </Routes>
+    </Toaster>
   )
 }
