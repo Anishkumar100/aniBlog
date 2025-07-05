@@ -32,7 +32,7 @@ export const addBlog = async (req, res) => {
                 //this folder is optional, just to save your files in the imageKit inside this blogs folder. Now we are not going to store this image straight away in mongoDB. since it is the exact thing u got from the user we have to optimize this image. And dont mug this code its in the docs of imageKit
             })
 
-            const optimizedImageURL = await imagekit.url({
+            const optimizedImageURL = imagekit.url({
                 path: response.filePath,
                 transformation: [
                     { quality: `auto` }, //Auto Compression
@@ -205,7 +205,7 @@ export const getIndividualBlogComments =async (req,res)=>
     {
         const {blogId} = req.params
         const comments = await commentModel.find({blog:blogId,isApproved:true}).sort({createdAt:-1})
-        /*In comment model each entry has a blog (individual),name,content. we are finding that particular entry by finding the individual blog with unique id and status approved. And this sort({createdAt:-1}) is just used to arrange the entries at descending order*/
+        /*In comment model each entry has a blog id (individual blog id),name,content. we are finding that particular entry by finding the individual blog with unique id and status approved. And this sort({createdAt:-1}) is just used to arrange the entries at descending order*/
         res.json({success:true,comments})
     }
     catch (error) 

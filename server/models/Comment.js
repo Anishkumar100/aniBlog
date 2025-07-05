@@ -7,7 +7,7 @@ const commentSchema = mongoose.Schema({
     type:mongoose.Schema.Types.ObjectId,
     ref:'blog',   
     required:true 
-    /*Know one thing we are getting only 1 blog based on the id from the model used in the cluster0 (blog) */
+    /*Know one thing we are getting only 1 blog's id. we are storing only one blog's id here. while creating the comment, we will be getting the blog's id and store it in the commentModel with the name and content. And if the admin wants comments from a particular blog, we have to get that particular blog id and check it with the created comment entrees */
    },
    name:
    {

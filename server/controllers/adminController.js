@@ -70,7 +70,7 @@ export const getAllAdminBlogs = async (req, res) => {
 export const getAllComments = async (req, res) => {
     try {
         const allComments = await commentModel.find().populate("blog").sort({ createdAt: -1 })
-        // u will get entries with schema (blog,name,content)
+        // this populate is used to substitute the blog id with the actual blog. will be useful if u  want to get all the data at one place
 
         res.json({ success: true, allComments })
     }
