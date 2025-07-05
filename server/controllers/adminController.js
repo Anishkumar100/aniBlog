@@ -56,8 +56,8 @@ Now, we created the adminController. but, we have to tell where this controller 
 
 export const getAllAdminBlogs = async (req, res) => {
     try {
-        const allBlogs = await blogModel.find().sort({ createdAt: -1 }) // sorting the extries of blogs in descending order showing latest entries
-        res.json({ success: true, allBlogs })
+        const blogs = await blogModel.find().sort({ createdAt: -1 }) // sorting the extries of blogs in descending order showing latest entries
+        res.json({ success: true, blogs })
     }
     catch (error) {
         res.json({ success: true, message: error.message })
@@ -69,10 +69,10 @@ export const getAllAdminBlogs = async (req, res) => {
 
 export const getAllComments = async (req, res) => {
     try {
-        const allComments = await commentModel.find().populate("blog").sort({ createdAt: -1 })
+        const comments = await commentModel.find().populate("blog").sort({ createdAt: -1 })
         // this populate is used to substitute the blog id with the actual blog. will be useful if u  want to get all the data at one place
 
-        res.json({ success: true, allComments })
+        res.json({ success: true, comments })
     }
     catch (error) {
         res.json({ success: false, message: error.message })
@@ -86,21 +86,21 @@ export const getDashboard = async (req, res) =>
     try 
     {
         //first getting latest blogs
-        const latestBlogs = await blogModel.find().sort({createdAt:-1}).limit(5)
+        const recentBlogs = await blogModel.find().sort({createdAt:-1}).limit(5)
 
-        const totalBlogs = await blogModel.countDocuments()
+        const blogs = await blogModel.countDocuments()
 
-        const totalComments = await blogModel.countDocuments()
+        const comments = await blogModel.countDocuments()
 
-        const totalDrafts = await blogModel.countDocuments({isPublished:false}) // unpublished blogs
+        const drafts = await blogModel.countDocuments({isPublished:false}) // unpublished blogs
 
         //combining everything together (optional)
 
-        const dashBoardData={
-            latestBlogs, totalBlogs,totalComments,totalDrafts
+        const dashboardData={
+            recentBlogs, blogs,comments,drafts
         }
 
-        res.json({success:true,dashBoardData})
+        res.json({success:true,dashboardData})
     } 
     catch (error) 
     { 

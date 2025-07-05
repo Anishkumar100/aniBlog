@@ -103,8 +103,8 @@ Now after going through the auth,multer and finally decalring the route for crea
 export const getAllPublishedBlogs = async (req, res) => {
     /*This function is used to get the published blogs in the home page. Thus we are finding the isPublished:true blogs from the blogModel we built in mongodb with the schema u defined*/
     try {
-        const publishedBlogs = await blogModel.find({ isPublished: true })
-        res.json({ success: true, publishedBlogs })
+        const blogs = await blogModel.find({ isPublished: true })
+        res.json({ success: true, blogs })
     }
     catch (error) {
         res.json({ success: false, message: `Couldn't get published blogs` })
@@ -117,13 +117,13 @@ export const getPublishedBlogById = async (req, res) => {
 
     try {
         const { blogId } = req.params
-        const requiredBlog = await blogModel.findById(blogId)
+        const blog = await blogModel.findById(blogId)
         if (!requiredBlog) //if id is null
         {
             res.json({ success: false, message: `The Blog with the requested id aint found` })
         }
         else {
-            res.json({ success: true, requiredBlog })
+            res.json({ success: true, blog })
         }
     }
     catch (error) {
