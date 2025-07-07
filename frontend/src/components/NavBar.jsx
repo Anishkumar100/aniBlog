@@ -31,18 +31,7 @@ export const NavBar = () => {
           {darkMode ? '☀️' : '🌙'}
         </button>
 
-        <button
-          onClick={() => 
-            {
-              navigate('/admin')
-              setDarkMode(false)
-            }}
-          className='flex items-center gap-2 rounded-full text-sm cursor-pointer bg-primary text-white px-10 py-2.5 dark:bg-blue-700 dark:text-white'
-        >
-          
-          {token?`Dashboard`:`Login`}
-                    <img src={assets.arrow} className='w-3' alt="arrow" />
-        </button>
+       
       </div>
     </div>
   )
