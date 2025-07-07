@@ -31,7 +31,7 @@ export const NavBar = () => {
           {darkMode ? '☀️' : '🌙'}
         </button>
 
-       
+      
       </div>
     </div>
   )
