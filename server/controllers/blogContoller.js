@@ -2,6 +2,7 @@ import fs from "fs"
 import blogModel from "../models/Blog.js"
 import imagekit from "../configs/imageKit.js"
 import commentModel from "../models/Comment.js"
+import main from "../configs/gemini.js"
 
 export const addBlog = async (req, res) => {
     try {
@@ -103,7 +104,7 @@ Now after going through the auth,multer and finally decalring the route for crea
 export const getAllPublishedBlogs = async (req, res) => {
     /*This function is used to get the published blogs in the home page. Thus we are finding the isPublished:true blogs from the blogModel we built in mongodb with the schema u defined*/
     try {
-        const blogs = await blogModel.find({ isPublished: true })
+        const blogs = await blogModel.find({ isPublished: true }).sort({ createdAt: -1 })
         res.json({ success: true, blogs })
     }
     catch (error) {
@@ -118,7 +119,7 @@ export const getPublishedBlogById = async (req, res) => {
     try {
         const { blogId } = req.params
         const blog = await blogModel.findById(blogId)
-        if (!requiredBlog) //if id is null
+        if (!blog) //if id is null
         {
             res.json({ success: false, message: `The Blog with the requested id aint found` })
         }
@@ -139,79 +140,89 @@ export const deleteBlogById = async (req, res) => {
         const { blogId } = req.params
         const requiredBlogToDelete = await blogModel.findByIdAndDelete(blogId)
 
-        //delete all commentModel entrees associated with this blog
-        await Comment.deleteMany({blog: blogId})
-        if(!requiredBlogToDelete)
-        {
+
+        if (!requiredBlogToDelete) {
             res.json({ success: false, message: `Blog Not Found ` })
-           
+
         }
+
+        //delete all commentModel entrees associated with this blog
+        await commentModel.deleteMany({ blog: blogId })
+
         res.json({ success: true, message: `The Required Blog is deleted` })
     }
-    catch (error)
-    {
+    catch (error) {
         res.json({ success: false, message: error.message })
     }
-  
+
 }
 
 
-export const togglePublish= async(req,res)=>
-{
-    try 
-    {
-        const {id} = req.body
+export const togglePublish = async (req, res) => {
+    try {
+        const { id } = req.body
         const requiredBlog = await blogModel.findById(id)
-        if (!requiredBlog)
-        {
-            res.json({success:false,message:`No Blog Found according to this id`})
+        if (!requiredBlog) {
+            res.json({ success: false, message: `No Blog Found according to this id` })
         }
-        const publishStatus= !requiredBlog.isPublished
-        await blogModel.findByIdAndUpdate(id,{isPublished:publishStatus},{ new: true})
-        res.json({success:true,message:`The Required Blog's status changed successfully`})
-    } 
-    catch (error) 
-    {
-        res.json({success:false,message:error.message})
+        const publishStatus = !requiredBlog.isPublished
+        await blogModel.findByIdAndUpdate(id, { isPublished: publishStatus }, { new: true })
+        res.json({ success: true, message: `The Required Blog's status changed successfully` })
+    }
+    catch (error) {
+        res.json({ success: false, message: error.message })
     }
 }
 
 
 /*this function is used to add comment from the home page by normal users */
 
-export const addCommentByUser = async(req,res)=>
-{
-    try 
-    {
+export const addCommentByUser = async (req, res) => {
+    try {
         //this blog is the individual, under which the user will comment. And most importantly u are storing something different from the blog model schema. so u will need a new model i have created a model for the comment
-        const {blog,name,content} = req.body
+        const { blog, name, content } = req.body
 
-        await commentModel.create({blog,name,content})
-        res.json({success:true,message:`Comment added for review`})
-    } 
-    catch (error) 
-    {
-      res.json({success:false,message:error.message})  
+        await commentModel.create({ blog, name, content })
+        res.json({ success: true, message: `Comment added for review` })
+    }
+    catch (error) {
+        res.json({ success: false, message: error.message })
     }
 }
 
 
 /*Previously we created comments, in a specific blog, in response we sent that particular blog,name,content. Here, we will get all those approved comments made for individual blogs */
 
-export const getIndividualBlogComments =async (req,res)=>
-{
+export const getIndividualBlogComments = async (req, res) => {
     //get Request
-    try 
-    {
-        const {blogId} = req.params
-        const comments = await commentModel.find({blog:blogId,isApproved:true}).sort({createdAt:-1})
+    try {
+        const { blogId } = req.params
+        const comments = await commentModel.find({ blog: blogId, isApproved: true }).sort({ createdAt: -1 })
         /*In comment model each entry has a blog id (individual blog id),name,content. we are finding that particular entry by finding the individual blog with unique id and status approved. And this sort({createdAt:-1}) is just used to arrange the entries at descending order*/
-        res.json({success:true,comments})
+        res.json({ success: true, comments })
     }
-    catch (error) 
-    {
-        res.json({success:false,message:error.message})
+    catch (error) {
+        res.json({ success: false, message: error.message })
     }
 }
 
 //now we are creating admin Dashboard api in adminController and also if u notice closely in blogController we made api's for non admin access for comment related operations. and for admin access required operations have to use adminController (its up to u)
+
+
+//created everything now we are creating a route and controller logic for gemini 
+
+export const generateContent = async (req,res)=>
+{
+    try 
+    {
+        const {prompt} = req.body
+
+        const response = await main(prompt + `Generate a blog content for this topic in a funny manner and make sure the audience learn a lot in funny manner.` ) // this is my own prompt to make the content a blog type content by adding this
+
+        res.json({success:true,response})
+    } 
+    catch (error) 
+    {
+        res.json({success:false,message:error.message})   
+    }
+}

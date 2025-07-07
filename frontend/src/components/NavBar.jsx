@@ -2,23 +2,13 @@ import React, { useEffect } from 'react'
 import { assets } from "../assets/assets"
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
-import { useAppContext } from '../../context/AppContext'
+import { useAppContext } from '../context/AppProvider'
 
 export const NavBar = () => {
 
-  const {navigate,token} = useAppContext()
-  /*have took the token here, so that if its present we have to change the login button to dashboard and if not "log" */
+  const {navigate,token,setDarkMode,darkMode} = useAppContext()
 
-  const [darkMode, setDarkMode] = useState(JSON.parse(localStorage.getItem('darkMode')) || false)
 
-  useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add('dark')
-    } else {
-      document.documentElement.classList.remove('dark')
-    }
-    localStorage.setItem('darkMode', JSON.stringify(darkMode))
-  }, [darkMode])
 
   return (
     <div className='flex justify-between items-center py-2 px-2  bg-white text-gray-800 dark:bg-gray-900 dark:text-white'>
@@ -45,12 +35,13 @@ export const NavBar = () => {
           onClick={() => 
             {
               navigate('/admin')
-              setDarkMode((prev)=>!prev)
+              setDarkMode(false)
             }}
           className='flex items-center gap-2 rounded-full text-sm cursor-pointer bg-primary text-white px-10 py-2.5 dark:bg-blue-700 dark:text-white'
         >
+          
           {token?`Dashboard`:`Login`}
-          <img src={assets.arrow} className='w-3' alt="arrow" />
+                    <img src={assets.arrow} className='w-3' alt="arrow" />
         </button>
       </div>
     </div>

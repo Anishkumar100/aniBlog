@@ -1,7 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { assets, footer_data } from '../assets/assets'
+import { useAppContext } from '../context/AppProvider'
 
 export const Footer = () => {
+
+  const {setDarkMode,darkMode} = useAppContext()
+
+  
   return (
     <div className='px-6 md:px-16 lg:px-24 xl:px-32 bg-primary/3 dark:bg-gray-900 dark:text-white'>
 
@@ -10,7 +15,7 @@ export const Footer = () => {
         <div>
           {/*Even here u have to change logo when in darkmode */}
           <img
-            src={JSON.parse(localStorage.getItem("darkMode")) === true ? assets.logo_dark : assets.logo_light}
+            src={darkMode === true ? assets.logo_dark : assets.logo_light}
             alt="logo"
             className='w-32 sm:w-44'
           />

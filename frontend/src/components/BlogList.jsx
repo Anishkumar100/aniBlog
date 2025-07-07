@@ -3,12 +3,31 @@ import { blog_data, blogCategories } from '../assets/assets'
 import { useState } from 'react'
 import { motion } from "motion/react"
 import { BlogCard } from "./BlogCard"
+import { useAppContext } from '../context/AppProvider'
+
 
 //we are using motion npm for animation (copy paste)
 
 export const BlogList = () => {
 
     const [menu, setMenu] = useState('All')
+
+    const {blogs,input} = useAppContext()
+    
+    const filteredBlogs=()=>
+    {
+        if(input === "")
+        {
+            return blogs
+        }
+        else
+        {
+            return blogs.filter((blog)=>
+            {
+                return(blog.title.toLowerCase().includes  (input.toLowerCase() || blog.category.toLowerCase().includes(input.toLowerCase()))) //returning an array of blogs respective to title or category (more relevance) the input is obtained from the search bar
+            })
+        }
+    }
 
     return (
         <div className='dark:bg-gray-900 dark:text-white'>
@@ -50,7 +69,7 @@ export const BlogList = () => {
             {/*Section 2:- Actual Blog Items (used another component for blog cards) */}
 
             <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8 pb-24 mx-8 sm:mx-16 xl:mx-40  border-b-0 ' >
-                {blog_data.filter((blog) => menu === "All" ? blog : menu === blog.category).map((blog) => <BlogCard key={blog._id} blog={blog} />)}
+                {filteredBlogs().filter((blog) => menu === "All" ? blog : menu === blog.category).map((blog) => <BlogCard key={blog._id} blog={blog} />)}
             </div >
 
             {/*

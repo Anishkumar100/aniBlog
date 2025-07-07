@@ -90,7 +90,7 @@ export const getDashboard = async (req, res) =>
 
         const blogs = await blogModel.countDocuments()
 
-        const comments = await blogModel.countDocuments()
+        const comments = await commentModel.countDocuments()
 
         const drafts = await blogModel.countDocuments({isPublished:false}) // unpublished blogs
 
