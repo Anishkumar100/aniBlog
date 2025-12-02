@@ -28,7 +28,7 @@ export const BlogList = () => {
     return (
         <div className='dark:bg-gray-900 dark:text-white'>
             {/*Section 1:-category of blogs */}
-            {/*Ad Features */}
+
             <div className=' flex justify-center gap-4 sm:gap-8 py-10 relative'>
 
 
@@ -76,6 +76,7 @@ export const BlogList = () => {
         Its very simple u are filtering the array elements based on choice of users. first we are taking the blog_data from assets and in it, we are comparing if the menu is "All", if it is "All" return all the array elements. and if it is something else, we are comparing it with all the array elements and finding the chosen category and returning only the particular elements of the array. now, we are mapping those chosen elements, with a component for displaying the elements as cards with a prop being the element itself.  */}
 
 
+            {/*Ad Features */}
             <script
                 async="async"
                 data-cfasync="false"
