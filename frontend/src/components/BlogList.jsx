@@ -12,19 +12,15 @@ export const BlogList = () => {
 
     const [menu, setMenu] = useState('All')
 
-    const {blogs,input} = useAppContext()
-    
-    const filteredBlogs=()=>
-    {
-        if(input === "")
-        {
+    const { blogs, input } = useAppContext()
+
+    const filteredBlogs = () => {
+        if (input === "") {
             return blogs
         }
-        else
-        {
-            return blogs.filter((blog)=>
-            {
-                return(blog.title.toLowerCase().includes  (input.toLowerCase() || blog.category.toLowerCase().includes(input.toLowerCase()))) //returning an array of blogs respective to title or category (more relevance) the input is obtained from the search bar
+        else {
+            return blogs.filter((blog) => {
+                return (blog.title.toLowerCase().includes(input.toLowerCase() || blog.category.toLowerCase().includes(input.toLowerCase()))) //returning an array of blogs respective to title or category (more relevance) the input is obtained from the search bar
             })
         }
     }
@@ -33,6 +29,13 @@ export const BlogList = () => {
         <div className='dark:bg-gray-900 dark:text-white'>
             {/*Section 1:-category of blogs */}
             <div className=' flex justify-center gap-4 sm:gap-8 py-10 relative'>
+                <script
+                    async="async"
+                    data-cfasync="false"
+                    src="//pl28177411.effectivegatecpm.com/08dc434734ea14f1c91b61d2e3c990d6/invoke.js"
+                ></script>
+                <div id="container-08dc434734ea14f1c91b61d2e3c990d6"></div>
+
                 {blogCategories.map((item) => {
                     return (
                         <div key={item} className="relative">
@@ -48,7 +51,7 @@ export const BlogList = () => {
                                         layoutId="underline"
                                         transition={{ type: 'spring', stiffness: 500, damping: 30 }}
                                         className="absolute inset-0 h-7 z-0 rounded-full
-                   bg-primary dark:bg-primary dark:text-white"   
+                   bg-primary dark:bg-primary dark:text-white"
                                     />
                                 )}
                             </button>
@@ -75,6 +78,14 @@ export const BlogList = () => {
             {/*
         Explanation of section 2:-
         Its very simple u are filtering the array elements based on choice of users. first we are taking the blog_data from assets and in it, we are comparing if the menu is "All", if it is "All" return all the array elements. and if it is something else, we are comparing it with all the array elements and finding the chosen category and returning only the particular elements of the array. now, we are mapping those chosen elements, with a component for displaying the elements as cards with a prop being the element itself.  */}
+
+
+            <script
+                async="async"
+                data-cfasync="false"
+                src="//pl28177411.effectivegatecpm.com/08dc434734ea14f1c91b61d2e3c990d6/invoke.js"
+            ></script>
+            <div id="container-08dc434734ea14f1c91b61d2e3c990d6"></div>
         </div >
     )
 }
