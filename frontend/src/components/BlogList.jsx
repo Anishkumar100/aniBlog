@@ -30,12 +30,7 @@ export const BlogList = () => {
             {/*Section 1:-category of blogs */}
             {/*Ad Features */}
             <div className=' flex justify-center gap-4 sm:gap-8 py-10 relative'>
-                <script
-                    async="async"
-                    data-cfasync="false"
-                    src="//pl28177411.effectivegatecpm.com/08dc434734ea14f1c91b61d2e3c990d6/invoke.js"
-                ></script>
-                <div id="container-08dc434734ea14f1c91b61d2e3c990d6"></div>
+
 
                 {blogCategories.map((item) => {
                     return (
