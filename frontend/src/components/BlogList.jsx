@@ -28,6 +28,7 @@ export const BlogList = () => {
     return (
         <div className='dark:bg-gray-900 dark:text-white'>
             {/*Section 1:-category of blogs */}
+            {/*Ad Features */}
             <div className=' flex justify-center gap-4 sm:gap-8 py-10 relative'>
                 <script
                     async="async"
